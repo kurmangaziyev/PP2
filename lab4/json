@@ -1,0 +1,20 @@
+import json  # Импортируем модуль для работы с JSON-файлами
+
+# Открываем и загружаем данные из JSON-файла
+with open("sample-data.json") as file:
+    data = json.load(file)
+
+# Выводим заголовок таблицы с форматированием
+print(f"{'DN':<50} {'Description':<20} {'Speed':<10} {'MTU':<10}")
+print("=" * 90)  # Разделитель для читаемости
+
+# Обрабатываем данные и выводим строки таблицы
+for item in data["imdata"]:
+    attributes = item["l1PhysIf"]["attributes"]
+    dn = attributes["dn"]  # Имя устройства
+    description = attributes["descr"] if attributes["descr"] else "N/A"  # Описание (если нет, ставим N/A)
+    speed = attributes["speed"]  # Скорость соединения
+    mtu = attributes["mtu"]  # Размер MTU
+
+    # Выводим строку с отформатированными данными
+    print(f"{dn:<50} {description:<20} {speed:<10} {mtu:<10}")
